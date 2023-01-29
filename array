@@ -1,0 +1,127 @@
+import java.util.Arrays;
+
+public class array {
+	private int[] items;
+	private int count;
+	
+	public array(int length) {
+		this.items = new int[length];
+		this.count = 0;
+	}
+	
+	public int size() {
+		return count;
+	}
+	
+	public void add(int value) {
+		if (count >= items.length) {
+			int[] newitems = new int[items.length * 2];
+			for (int i=0; i < count; i++) {
+				newitems[i] = items[i];
+			}
+			items = newitems;
+		}
+		items[count] = value;
+		count++;
+	}
+	
+	public void insert(int index, int value) {
+		if (index >= this.count) {
+			this.add(value);
+		}
+		else {
+			int[] tempArr = new int[items.length * 2];
+			for (int i = 0; i <= count + 1; i++) {
+				if (i < index) {
+					tempArr[i] = items[i];
+				}
+				if (i == index) {
+					tempArr[i] = value;
+				}
+				if (i > index) {
+					tempArr[i] = items[i-1];
+				}
+			}
+			items = tempArr;
+			count++;
+		}
+	}
+	
+	public int get(int index) {
+		return items[index];
+	}
+	
+	public void delete(int index) {
+		int[] tempArr = new int[items.length];
+		for (int i = 0; i < count; i++) {
+			if (i < index) {
+				tempArr[i] = items[i];
+			}
+			if (i >= index) {
+				tempArr[i] = items[i + 1];
+			}
+		}
+		items = tempArr;
+		count--;
+	}
+	
+	public String print() {
+		String printer = new String();
+		for (int i=0; i < this.count; i++) {
+			if (i == this.count - 1) {
+				printer = printer + items[i];
+			}
+			else {
+				printer = printer + items[i] + ", ";
+			}
+		}
+		return printer;
+	}
+	
+	public int secondMin() {
+		int temp;
+		for (int i = 0; i < this.count; i++) {
+			for (int j = i + 1; j < this.count; j++) {
+				if (items[i] > items[j]) {
+					temp = items[i];
+					items[i] = items[j];
+					items[j] = temp;
+				}
+			}
+		}
+		return items[1];
+	}
+	
+	public void nonRepeat() {
+		for (int i=0; i < this.count; i++) {
+			if (items[i] != items[i+1]) {
+				System.out.println(items[i] + ", " + items[i+1]);
+				break;
+			}
+		}
+	}
+	
+	public void sort() {
+		int temp;
+		for (int i=0; i < this.count; i++) {
+			for (int j=i+1; j < this.count; j++) {
+				if (items[i] > items[j]) {
+					temp = items[i];
+					items[i] = items[j];
+					items[j] = temp;
+				}
+			}
+		}
+	}
+	
+	public void twosort(array arr1, array arr2) {
+		array tempArr = new array(arr1.count + arr2.count);
+		for (int i=0; i < arr1.count; i++) {
+			tempArr.add(arr1.get(i));
+		}
+		for (int j=0; j < arr2.count; j++) {
+			tempArr.add(arr2.get(j));
+		}
+		tempArr.sort();
+		System.out.println(tempArr.print());
+	}
