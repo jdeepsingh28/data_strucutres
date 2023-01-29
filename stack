@@ -1,0 +1,67 @@
+public class stack {
+	private int[] items;
+	private int count;
+	
+	public stack(int length) {
+		items = new int[length];
+		this.count = 0;
+	}
+	
+	public void print() {
+		for (int i=this.count - 1; i >= 0; i--) {
+			System.out.println(items[i]);
+		}
+		System.out.println("End");
+	}
+	
+	public void push(int element) {
+		System.out.println("Element: " + element);
+		items[count] = element;
+		System.out.println("Count: " + count);
+		count++;
+	}
+	
+	public int pop() {
+		int value;
+		int[] tempArr = new int[this.count];
+		value = items[count-1];
+		count--;
+		for (int i=0; i < this.count; i++) {
+			tempArr[i] = items[i];
+		}
+		items = tempArr;
+		return value;
+	}
+	
+	public boolean isEmpty() {
+		boolean empty;
+		if (count > 0) {
+			empty = false;
+		}
+		else {
+			empty = true;
+		}
+		return empty;
+	}
+	
+	public int top() {
+		return items[count-1];
+	}
+	
+	public void add() {
+		int value;
+		value = this.pop() + this.pop();
+		this.push(value);
+	}
+	
+	public void subtract() {
+		int value;
+		value = this.pop() - this.pop();
+		this.push(value);
+	}
+	
+	public void multiply() {
+		int value;
+		value = this.pop() * this.pop();
+		this.push(value);
+	}
