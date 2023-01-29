@@ -1,0 +1,119 @@
+import java.util.Arrays;
+
+public class linkedlist {
+	
+	node head;
+	
+	public class node {
+		int data;
+		node next;
+		
+		node(int d) {
+			data = d;
+		}
+	}
+	
+	public void insertAtEnd(int data) {
+		if (head == null) {
+			head = new node(data);
+			return;
+		}
+		node current = head;
+		while (current.next != null) {
+			current = current.next;
+		}
+		current.next = new node(data);
+	}
+	
+	public void insertAtHead(int data) {
+		if (head == null) {
+			head = new node(data);
+		}
+		node adder = new node(data);
+		node next = head.next;
+		head.next = adder;
+		adder.next = next;
+	}
+	
+	public void deleteAtHead() {
+		node current = head;
+		head = current.next;
+	}
+	
+	public void delete(int data) {
+		node previous = null;
+		node current = head;
+		if (current.data == data) {
+			this.deleteAtHead();
+			return;
+		}
+		while (current.data != data) {
+			previous = current;
+			current = current.next;
+		}
+		previous.next = current.next;
+	}
+	
+	public int search(int data) {
+		node current = head;
+		while (current.data != data) {
+			current = current.next;
+			if (current.next == null & current.data != data) {
+				return -1;
+			}
+		}
+		return current.data;
+	}
+	
+	public boolean isEmpty() {
+		if (head == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int numberofNodes() {
+		node current = head;
+		int counter = 1;
+		while (current.next != null) {
+			current = current.next;
+			counter++;
+		}
+		return counter;
+	}
+	
+	public linkedlist reverse() {
+		node current = head;
+		node[] holder = new node[this.numberofNodes()];
+		linkedlist temp = new linkedlist();
+		int counter = 0;
+		while (counter < this.numberofNodes()) {
+			holder[counter] = current;
+			counter++;
+			current = current.next;
+		}
+		while (counter > 0) {
+			counter--;
+			temp.insertAtEnd(holder[counter].data);
+		}
+		temp.print();
+		return temp;
+	}
+	
+	public void removeDuplicates() {
+		node current = head;
+		while (current.next != null) {
+			if (current.data == current.next.data) {
+				this.delete(current.next.data);
+			}
+			current = current.next;
+		}
+	}
+	
+	public void print() {
+		node current = head;
+		while(current != null) {
+			System.out.println(current.data);
+			current = current.next;
+		}
+	}
